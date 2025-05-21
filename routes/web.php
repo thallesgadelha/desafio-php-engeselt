@@ -44,14 +44,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     /**
      * Rotas do COLABORADOR
      */
-    Route::middleware('can:isColaborador')->group(function () {
+    Route::middleware('verifica-perfil:colaborador')->group(function () {
         Route::resource('chamados', ChamadoController::class);
     });
 
     /**
      * Rotas do TÉCNICO
      */
-    Route::prefix('tecnico')->name('tecnico.')->middleware('can:isTecnico')->group(function () {
+    Route::prefix('tecnico')->name('tecnico.')->middleware('verifica-perfil:tecnico')->group(function () {
         Route::get('chamados', [ChamadoTecnicoController::class, 'index'])->name('chamados.index');
         Route::get('chamados/{chamado}', [ChamadoTecnicoController::class, 'show'])->name('chamados.show');
         Route::post('chamados/{chamado}/resposta', [ChamadoTecnicoController::class, 'responder'])->name('chamados.responder');
