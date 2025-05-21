@@ -1,5 +1,6 @@
 <template>
-  <div class="max-w-5xl mx-auto p-6">
+  <AppLayout title="Chamados">
+    <div class="max-w-5xl mx-auto p-6">
     <div class="flex justify-between items-center mb-6">
       <h1 class="text-2xl font-bold text-gray-800">Meus Chamados</h1>
       <Link href="/chamados/create" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow">
@@ -28,9 +29,12 @@
       </div>
     </div>
   </div>
+  </AppLayout>
 </template>
 
 <script setup>
 import { Link } from '@inertiajs/vue3'
+import AppLayout from '@/Layouts/AppLayout.vue';
+
 defineProps({ chamados: Array })
 </script>
