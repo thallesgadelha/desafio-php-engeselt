@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\ChamadoController;
 use App\Http\Controllers\Tecnico\ChamadoTecnicoController;
+use App\Http\Controllers\CategoriaController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -56,5 +57,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('chamados/{chamado}', [ChamadoTecnicoController::class, 'show'])->name('chamados.show');
         Route::post('chamados/{chamado}/resposta', [ChamadoTecnicoController::class, 'responder'])->name('chamados.responder');
         Route::patch('chamados/{chamado}/status', [ChamadoTecnicoController::class, 'alterarStatus'])->name('chamados.status');
+        Route::get('categorias', [CategoriaController::class, 'index'])->name('categorias.index');
     });
 });
