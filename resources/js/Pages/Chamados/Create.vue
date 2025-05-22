@@ -1,5 +1,6 @@
 <template>
-  <div class="max-w-3xl mx-auto p-6 bg-white rounded shadow">
+  <AppLayout title="Novo Chamado">
+  <div class="max-w-3xl mx-auto p-6 bg-white rounded shadow mt-6">
     <h1 class="text-2xl font-bold text-gray-800 mb-6">Abrir Novo Chamado</h1>
 
     <form @submit.prevent="submit" class="space-y-5">
@@ -45,9 +46,11 @@
       </div>
     </form>
   </div>
+  </AppLayout>
 </template>
 
 <script setup>
+import AppLayout from '@/Layouts/AppLayout.vue'
 import { useForm } from '@inertiajs/vue3'
 
 const form = useForm({
