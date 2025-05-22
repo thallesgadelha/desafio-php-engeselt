@@ -2,23 +2,31 @@
   <AppLayout title="Chamados">
     <div class="max-w-6xl mx-auto p-6">
         <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6 gap-4">
-        <h1 class="text-2xl font-bold text-gray-800">Chamados Técnicos</h1>
-        <div class="flex gap-4">
-            <select v-model="filters.status" @change="applyFilters" class="border px-3 py-2 rounded">
-            <option value="">Todos os Status</option>
-            <option>Aberto</option>
-            <option>Em atendimento</option>
-            <option>Resolvido</option>
-            <option>Fechado</option>
-            </select>
+          <h1 class="text-2xl font-bold text-gray-800">Chamados Técnicos</h1>
+          <div class="flex gap-4">
+              <select 
+                v-model="filters.status" 
+                @change="applyFilters" 
+                class="border px-3 py-2 rounded text-sm"
+              >
+                <option value="">Todos os Status</option>
+                <option>Aberto</option>
+                <option>Em atendimento</option>
+                <option>Resolvido</option>
+                <option>Fechado</option>
+              </select>
 
-            <select v-model="filters.prioridade" @change="applyFilters" class="border px-3 py-2 rounded">
-            <option value="">Todas as Prioridades</option>
-            <option>Baixa</option>
-            <option>Média</option>
-            <option>Alta</option>
-            </select>
-        </div>
+              <select 
+                v-model="filters.prioridade" 
+                @change="applyFilters" 
+                class="border px-3 py-2 rounded text-sm"
+              >
+              <option value="">Todas as Prioridades</option>
+              <option>Baixa</option>
+              <option>Média</option>
+              <option>Alta</option>
+              </select>
+          </div>
         </div>
 
         <div v-if="chamados.length === 0" class="text-center text-gray-500 py-10">
@@ -48,7 +56,7 @@
 </template>
 
 <script setup>
-import { router, Link } from '@inertiajs/vue3'
+import { router, Link,  } from '@inertiajs/vue3'
 import { ref } from 'vue';
 import AppLayout from '@/Layouts/AppLayout.vue';
 
@@ -60,6 +68,15 @@ const filters = ref({
 })
 
 function applyFilters() {
-  router.get('/tecnico/chamados', filters, { preserveState: true })
+  router.get('/tecnico/chamados',
+    {
+      status: filters.value.status || undefined,
+      prioridade: filters.value.prioridade || undefined,
+    },
+    {
+      preserveState: true,
+      preserveScroll: true,
+    }
+  );
 }
 </script>

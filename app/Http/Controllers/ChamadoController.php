@@ -10,9 +10,20 @@ use Inertia\Inertia;
 
 class ChamadoController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $chamados = auth()->user()->chamados()->latest()->get();
+        $query = Chamado::query();
+
+        if ($request->has('status')) {
+            $query->where('status', $request->status);
+        }
+
+        if ($request->has('prioridade')) {
+            $query->where('prioridade', $request->prioridade);
+        }
+
+        // $chamados = auth()->user()->chamados()->latest()->get();
+        $chamados = $query->latest()->get();
 
         return Inertia::render('Chamados/Index', compact('chamados'));
     }

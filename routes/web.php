@@ -59,8 +59,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::patch('chamados/{chamado}/status', [ChamadoTecnicoController::class, 'alterarStatus'])->name('chamados.status');
     });
     
-    Route::get('categorias', [CategoriaController::class, 'index'])->name('categorias.index');
-    Route::post('categorias', [CategoriaController::class, 'store'])->name('categorias.store');
-    Route::put('categorias/{categoria}', [CategoriaController::class, 'update'])->name('categorias.update');
-    Route::delete('categorias/{categoria}', [CategoriaController::class, 'delete'])->name('categorias.delete');
+    Route::prefix('categorias')->group(function () {
+        Route::get('', [CategoriaController::class, 'index'])->name('categorias.index');
+        Route::post('', [CategoriaController::class, 'store'])->name('categorias.store');
+        Route::put('/{categoria}', [CategoriaController::class, 'update'])->name('categorias.update');
+        Route::delete('/{categoria}', [CategoriaController::class, 'delete'])->name('categorias.delete');
+    });
+
 });

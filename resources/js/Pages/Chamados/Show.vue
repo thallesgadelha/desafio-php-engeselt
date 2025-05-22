@@ -5,7 +5,7 @@
                 <h1 class="text-2xl font-bold text-gray-800">Detalhes do Chamado</h1>
                 <Link
                     :href="route('chamados.index')"
-                    class="px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-700"
+                    class="px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-700 text-sm"
                 >
                     Voltar
                 </Link>
