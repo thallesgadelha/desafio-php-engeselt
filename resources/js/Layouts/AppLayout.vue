@@ -51,7 +51,7 @@ const logout = () => {
                                 <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
                                     Chamados
                                 </NavLink>
-                                <NavLink :href="route('tecnico.categorias.index')">
+                                <NavLink :href="route('categorias.index')" :active="route().current('categorias.index')">
                                     Categorias
                                 </NavLink>
                             </div>
@@ -195,7 +195,10 @@ const logout = () => {
                 <div :class="{'block': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}" class="sm:hidden">
                     <div class="pt-2 pb-3 space-y-1">
                         <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                            Dashboard
+                            Chamados
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink :href="route('categorias.index')">
+                            Categorias
                         </ResponsiveNavLink>
                     </div>
 
