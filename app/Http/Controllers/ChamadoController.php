@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Chamado;
+use App\Models\Categoria;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -17,7 +18,9 @@ class ChamadoController extends Controller
 
     public function create()
     {
-        return Inertia::render('Chamados/Create');
+        $categorias = Categoria::all();
+
+        return Inertia::render('Chamados/Create', compact('categorias'));
     }
 
     public function store(Request $request)
