@@ -7,7 +7,7 @@
               <select 
                 v-model="filters.status" 
                 @change="applyFilters" 
-                class="border px-3 py-2 rounded text-sm"
+                class="border py-2 rounded text-sm"
               >
                 <option value="">Todos os Status</option>
                 <option>Aberto</option>
@@ -19,7 +19,7 @@
               <select 
                 v-model="filters.prioridade" 
                 @change="applyFilters" 
-                class="border px-3 py-2 rounded text-sm"
+                class="border py-2 rounded text-sm"
               >
               <option value="">Todas as Prioridades</option>
               <option>Baixa</option>

@@ -5,7 +5,7 @@
                 <h1 class="text-2xl font-bold text-gray-800">Meus Chamados</h1>
                 <div class="flex flex-wrap items-center gap-4">
                     <select v-model="filters.status" @change="applyFilters"
-                        class="border px-3 py-2 rounded text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        class="border py-2 rounded text-sm"
                         :disabled="loading">
                         <option value="">Todos os Status</option>
                         <option value="Aberto">Aberto</option>
@@ -15,7 +15,7 @@
                     </select>
 
                     <select v-model="filters.prioridade" @change="applyFilters"
-                        class="border px-3 py-2 rounded text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        class="border py-2 rounded text-sm"
                         :disabled="loading">
                         <option value="">Todas as Prioridades</option>
                         <option value="Baixa">Baixa</option>
