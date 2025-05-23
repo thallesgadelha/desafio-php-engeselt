@@ -1,5 +1,6 @@
 <template>
     <AppLayout title="Categorias">
+        <Toast :message="toastMessage" :type="toastType" :id="toastId" />
         <div class="max-w-6xl mx-auto p-6">
             <div class="flex justify-between items-center mb-6">
                 <h1 class="text-2xl font-bold text-gray-800">Categorias</h1>
@@ -98,10 +99,11 @@
 </template>
 
 <script setup>
-import AppLayout from '@/Layouts/AppLayout.vue';
-import { Link, useForm } from '@inertiajs/vue3';
-import Modal from '@/Components/Modal.vue';
 import { ref } from 'vue';
+import AppLayout from '@/Layouts/AppLayout.vue';
+import { useForm } from '@inertiajs/vue3';
+import Modal from '@/Components/Modal.vue';
+import Toast from '@/Components/Toast.vue';
 
 defineProps({
     categorias: {
@@ -110,10 +112,20 @@ defineProps({
     },
 });
 
+const toastMessage = ref('');
+const toastType = ref('');
+const toastId = ref(0);
+
 const showCreateModal = ref(false);
 const showEditModal = ref(false);
 const showDeleteModal = ref(false);
 const selectedCategoria = ref(null);
+
+const showToastMessage = (message, type) => {
+    toastMessage.value = message;
+    toastType.value = type;
+    toastId.value = Date.now();
+};
 
 const createForm = useForm({
     nome: '',
@@ -139,6 +151,7 @@ const submitCreate = () => {
     createForm.post(route('categorias.store'), {
         onSuccess: () => {
             closeCreateModal();
+            showToastMessage('Categoria Cadastrada', 'success');
         },
     });
 };
@@ -159,6 +172,7 @@ const submitEdit = () => {
     editForm.put(route('categorias.update', selectedCategoria.value.id), {
         onSuccess: () => {
             closeEditModal();
+            showToastMessage('Categoria Atualizada', 'info');
         },
     });
 };
@@ -174,9 +188,10 @@ const closeDeleteModal = () => {
 };
 
 const submitDelete = () => {
-    deleteForm.delete(route('categorias.destroy', selectedCategoria.value.id), {
+    deleteForm.delete(route('categorias.delete', selectedCategoria.value.id), {
         onSuccess: () => {
             closeDeleteModal();
+            showToastMessage('Categoria Excluida', 'error');
         },
     });
 };
