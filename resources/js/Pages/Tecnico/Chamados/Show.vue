@@ -5,7 +5,7 @@
                 <h1 class="text-2xl font-bold text-gray-800">Detalhes do Chamado</h1>
                 <Link
                     :href="route('tecnico.chamados.index')"
-                    class="px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-700"
+                    class="px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-700 text-sm"
                 >
                     Voltar
                 </Link>
@@ -21,19 +21,52 @@
                             <p><strong>Descrição:</strong> {{ chamado.descricao }}</p>
                             <p><strong>Criado por:</strong> {{ chamado.nome_usuario }} </p>
                             <p><strong>Criado em:</strong> {{ new Date(chamado.created_at).toLocaleString() }}</p>
+                            <p><strong>Anexo: </strong> 
+                                <span v-if="chamado.anexo" @click="openAnexoModal" class="underline text-blue-500 hover:cursor-pointer">Visualizar Anexo</span>
+                                <span v-else class="text-gray-500">Nenhum Anexo Encontrado</span>
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <Modal :show="showAnexoModal" @close="closeAnexoModal" max-width="2xl">
+            <div class="p-6">
+                <h2 class="text-xl font-bold mb-4">Visualização do Anexo</h2>
+                <div v-if="anexoUrl" class="w-full h-[500px] border rounded overflow-hidden">
+                    <iframe :src="anexoUrl" class="w-full h-full" frameborder="0"></iframe>
+                </div>
+                <div class="mt-4 flex justify-end">
+                    <button @click="closeAnexoModal" class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded">
+                        Fechar
+                    </button>
+                </div>
+            </div>
+        </Modal>
     </AppLayout>
 </template>
 
 <script setup>
+import { ref } from 'vue';
 import { Link } from '@inertiajs/vue3';
 import AppLayout from '@/Layouts/AppLayout.vue';
+import Modal from '@/Components/Modal.vue';
 
-defineProps({
+const { chamado } = defineProps({
     chamado: Object,
 });
+
+const showAnexoModal = ref(false);
+const anexoUrl = ref('');
+
+const openAnexoModal = () => {
+    anexoUrl.value = `/storage/${chamado.anexo}`;
+    showAnexoModal.value = true;
+};
+
+const closeAnexoModal = () => {
+    showAnexoModal.value = false;
+    anexoUrl.value = '';
+};
 </script>
