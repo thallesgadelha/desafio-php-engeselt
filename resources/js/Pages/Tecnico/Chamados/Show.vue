@@ -43,17 +43,17 @@
                     <div class="flex justify-end items-center gap-2 mt-6">
                         <select v-model="updateStatusForm.status" class="border rounded px-3 py-2 text-sm">
                             <option value="Aberto">Aberto</option>
-                            <option value="Em Andamento">Em Andamento</option>
+                            <option value="Em atendimento">Em atendimento</option>
                             <option value="Resolvido">Resolvido</option>
                             <option value="Fechado">Fechado</option>
                         </select>
-                        <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded text-sm">
+                        <button @click="alterarStatus" :disabled="updateStatusForm.processing"
+                            class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded text-sm disabled:opacity-50">
                             Alterar Status
                         </button>
                     </div>
                 </div>
 
-                <!-- RESPOSTAS -->
                 <div class="bg-white shadow rounded p-4 border border-gray-100 hover:shadow-md transition">
                     <h2 class="text-lg font-semibold text-gray-800 mb-4">Respostas</h2>
 
@@ -143,5 +143,18 @@ const adicionarResposta = () => {
         respostas.value.push(novaResposta.value.trim());
         novaResposta.value = '';
     }
+};
+
+const alterarStatus = () => {
+    updateStatusForm.patch(route('tecnico.chamados.status', props.chamado.id), {
+        preserveState: true,
+        preserveScroll: true,
+        onSuccess: () => {
+            props.chamado.status = updateStatusForm.status;
+        },
+        onError: (errors) => {
+            console.error('Erro ao atualizar status:', errors);
+        },
+    });
 };
 </script>

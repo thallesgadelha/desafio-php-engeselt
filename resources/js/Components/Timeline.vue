@@ -24,7 +24,7 @@ const props = defineProps({
     },
 });
 
-const steps = ['Aberto', 'Em Andamento', 'Resolvido', 'Fechado'];
+const steps = ['Aberto', 'Em atendimento', 'Resolvido', 'Fechado'];
 
 const currentIndex = computed(() => {
     return steps.findIndex(status => status.toLowerCase() === props.currentStatus.toLowerCase());
