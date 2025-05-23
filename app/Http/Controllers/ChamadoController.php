@@ -45,7 +45,7 @@ class ChamadoController extends Controller
 
         $request->user()->chamados()->create($data);
 
-        return redirect()->route('chamados.index')->with('success', 'Chamado criado com sucesso.');
+        return redirect()->route('chamados.index')->with('toast', 'Chamado criado com sucesso.');
     }
 
     public function show(Chamado $chamado)

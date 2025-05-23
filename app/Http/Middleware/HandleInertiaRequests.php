@@ -47,6 +47,9 @@ class HandleInertiaRequests extends Middleware
                     'isTecnico' => $request->user()->isTecnico(),
                 ] : null,
             ],
+            'flash' => [
+                'toast' => fn () => $request->session()->get('toast'),
+            ],
         ];
     }
 }
