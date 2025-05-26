@@ -22,7 +22,10 @@
                             <td class="px-4 py-2 whitespace-nowrap">{{ usuario.email }}</td>
                             <td class="px-4 py-2 whitespace-nowrap">{{ usuario.role }}</td>
                             <td class="px-4 py-2 whitespace-nowrap">
-                                <span class="text-xs bg-green-800 text-white p-2 rounded-lg">Ativo</span>
+                                <span class="text-xs text-white p-2 rounded-lg"
+                                    :class="usuario.is_active === 'ativo' ? 'bg-green-800' : 'bg-red-800'">
+                                    {{ usuario.is_active }}
+                                </span>
                             </td>
                             <td class="px-4 py-2 text-center whitespace-nowrap">
                                 <button @click="openEditModal(usuario)"
@@ -42,31 +45,27 @@
                     <form @submit.prevent="submitEdit" class="space-y-5">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Nome</label>
-                            <input
-                                v-model="editForm.name"
-                                disabled
+                            <input v-model="editForm.name" disabled
                                 class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                            <input
-                                v-model="editForm.email"
-                                disabled
+                            <input v-model="editForm.email" disabled
                                 class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
                         </div>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-1">Permissão</label>
                                 <select v-model="editForm.role" class="w-full border rounded text-sm px-3 py-2">
-                                    <option value="colaborador">colaborador</option>
-                                    <option value="tecnico">tecnico</option>
+                                    <option value="colaborador">Colaborador</option>
+                                    <option value="tecnico">Tecnico</option>
                                 </select>
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-1">Status</label>
-                                <select class="w-full border rounded text-sm px-3 py-2">
-                                    <option value="">Ativo</option>
-                                    <option value="">Inativo</option>
+                                <select v-model="editForm.is_active" class="w-full border rounded text-sm px-3 py-2">
+                                    <option value="ativo">Ativo</option>
+                                    <option value="inativo">Inativo</option>
                                 </select>
                             </div>
                         </div>
@@ -107,6 +106,7 @@ const editForm = useForm({
     name: '',
     email: '',
     role: '',
+    is_active: '',
 });
 
 const openEditModal = (usuario) => {
@@ -114,6 +114,7 @@ const openEditModal = (usuario) => {
     editForm.name = usuario.name;
     editForm.email = usuario.email;
     editForm.role = usuario.role;
+    editForm.is_active = usuario.is_active;
     showEditModal.value = true;
 };
 
@@ -123,4 +124,11 @@ const closeEditModal = () => {
     selectedUsuario.value = null;
 };
 
+const submitEdit = () => {
+    editForm.patch(route('tecnico.usuarios.permissao', selectedUsuario.value.id), {
+        onSuccess: () => {
+            closeEditModal();
+        },
+    });
+};
 </script>

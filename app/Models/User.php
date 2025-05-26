@@ -29,7 +29,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role'
+        'role',
+        'is_active',
     ];
 
     /**
@@ -83,5 +84,15 @@ class User extends Authenticatable
     public function chamados()
     {
         return $this->hasMany(Chamado::class, 'user_id');
+    }
+
+    public function isAtivo()
+    {
+        return $this->is_active == 'ativo';
+    }
+    
+    public function isInativo()
+    {
+        return $this->is_active == 'inativo';
     }
 }

@@ -45,6 +45,7 @@ class HandleInertiaRequests extends Middleware
                     'role' => $request->user()->role,
                     'isColaborador' => $request->user()->isColaborador(),
                     'isTecnico' => $request->user()->isTecnico(),
+                    'isAtivo' => $request->user()->isAtivo(),
                 ] : null,
             ],
             'flash' => [

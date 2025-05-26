@@ -60,6 +60,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::patch('chamados/{chamado}/status', [ChamadoTecnicoController::class, 'alterarStatus'])->name('chamados.status');
 
         Route::get('usuarios', [UsuarioController::class, 'index'])->name('usuarios.index');
+        Route::patch('usuarios/{user}/permissao', [UsuarioController::class, 'alterarPermissao'])->name('usuarios.permissao');
     });
     
     Route::prefix('categorias')->group(function () {

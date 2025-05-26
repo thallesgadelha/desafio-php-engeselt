@@ -15,4 +15,19 @@ class UsuarioController extends Controller
 
         return Inertia::render('Tecnico/Usuarios/Index', compact('usuarios'));
     }
+
+    public function alterarPermissao(Request $request, User $user)
+    {
+        $request->validate([
+            'role' => 'required|in:colaborador,tecnico',
+            'is_active' => 'required|in:ativo,inativo',
+        ]);
+
+        $user->update([
+            'role' => $request->role,
+            'is_active' => $request->is_active,
+        ]);
+
+        return redirect()->route('tecnico.usuarios.index')->with('success', 'Permissão e Status Alterados.');
+    }
 }
