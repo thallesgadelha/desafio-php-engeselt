@@ -3,8 +3,9 @@
         <div class="max-w-6xl mx-auto p-6">
             <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6 gap-4">
                 <h1 class="text-2xl font-bold text-gray-800">Detalhes do Chamado</h1>
-                <Link :href="route('chamados.index')" class="px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-700 text-sm">
-                    Voltar
+                <Link :href="route('chamados.index')"
+                    class="px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-700 text-sm">
+                Voltar
                 </Link>
             </div>
 
@@ -23,7 +24,8 @@
                             <p><strong>Criado por:</strong> {{ chamado.nome_usuario }}</p>
                             <p><strong>Criado em:</strong> {{ new Date(chamado.created_at).toLocaleString() }}</p>
                             <p><strong>Anexo:</strong>
-                                <span v-if="chamado.anexo" @click="openAnexoModal" class="underline text-blue-500 hover:cursor-pointer">
+                                <span v-if="chamado.anexo" @click="openAnexoModal"
+                                    class="underline text-blue-500 hover:cursor-pointer">
                                     Visualizar Anexo
                                 </span>
                                 <span v-else class="text-gray-500">Nenhum Anexo Encontrado</span>
@@ -34,7 +36,8 @@
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-5">
-                <div class="bg-white shadow rounded p-4 border border-gray-100 hover:shadow-md transition flex flex-col justify-between">
+                <div
+                    class="bg-white shadow rounded p-4 border border-gray-100 hover:shadow-md transition flex flex-col justify-between">
                     <div>
                         <h2 class="text-lg font-semibold text-gray-800 mb-4">Status</h2>
                         <Timeline :currentStatus="chamado.status" />
@@ -45,8 +48,10 @@
                     <h2 class="text-lg font-semibold text-gray-800 mb-4">Respostas</h2>
 
                     <div class="space-y-3 max-h-60 overflow-y-auto pr-1">
-                        <div v-for="(resposta, index) in respostas" :key="index" class="bg-gray-50 border border-gray-200 rounded p-3 text-sm text-gray-700">
-                            {{ resposta }}
+                        <div v-for="(resposta, index) in props.respostas" :key="index"
+                            class="bg-gray-50 border border-gray-200 rounded p-3 text-sm text-gray-700">
+                            <p class="text-gray-800 whitespace-pre-line">{{ resposta.mensagem }}</p>
+                            <p class="text-xs text-gray-500 mt-1">Por: {{ resposta.user?.name ?? 'Técnico' }}</p>
                         </div>
                         <div v-if="respostas.length === 0" class="text-sm text-gray-400 italic">
                             Nenhuma resposta cadastrada.
@@ -63,7 +68,8 @@
                     <iframe :src="anexoUrl" class="w-full h-full" frameborder="0"></iframe>
                 </div>
                 <div class="mt-4 flex justify-end">
-                    <button @click="closeAnexoModal" class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded">
+                    <button @click="closeAnexoModal"
+                        class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded">
                         Fechar
                     </button>
                 </div>
@@ -81,6 +87,7 @@ import Timeline from '@/Components/Timeline.vue';
 
 const props = defineProps({
     chamado: Object,
+    respostas: Array,
 });
 
 const showAnexoModal = ref(false);

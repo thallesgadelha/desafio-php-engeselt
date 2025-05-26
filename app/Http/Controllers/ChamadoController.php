@@ -50,12 +50,16 @@ class ChamadoController extends Controller
 
     public function show(Chamado $chamado)
     {
-        $chamado = Chamado::select('chamados.*', 'users.name as nome_usuario')
+        $chamado = Chamado::with(['respostas.user'])
+            ->select('chamados.*', 'users.name as nome_usuario')
             ->leftJoin('users', 'chamados.user_id', '=', 'users.id')
             ->where('chamados.id', $chamado->id)
             ->first();
 
-        return Inertia::render('Chamados/Show', compact('chamado'));
+        return Inertia::render('Chamados/Show', [
+            'chamado' => $chamado,
+            'respostas' => $chamado->respostas,
+        ]);
     }
 }
 
