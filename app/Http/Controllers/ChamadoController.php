@@ -22,7 +22,6 @@ class ChamadoController extends Controller
             $query->where('prioridade', $request->prioridade);
         }
 
-        // $chamados = auth()->user()->chamados()->latest()->get();
         $chamados = $query->latest()->get();
 
         return Inertia::render('Chamados/Index', compact('chamados'));
