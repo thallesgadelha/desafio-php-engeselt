@@ -29,8 +29,13 @@ Este projeto contém a resolução dos chamados do desafio proposto
 - Composer 2.8.5
 - PostgreSQL 17
 - Node.JS 22.15.1 (LTS)
+- Docker 28.1
 
 ## Instalação e Configuração
+
+As orientações de inicialização do projeto são as mesmas do repositório do desafio.
+
+### Configurando o projeto localmente
 1. Clone o repositório:
 ```
 git clone https://github.com/thallesgadelha/desafio-php-engeselt.git
@@ -66,6 +71,95 @@ npm run dev
 6. Inicie o servidor de desenvolvimento:
 ```
 php artisan serve
+```
+
+### Configurando o projeto utilizando o Laradock
+1° - Na raiz do projeto, utilize o comando abaixo para copiar o arquivo .env.laradock.example para a raiz do seu Laradock:
+```
+cp .env.laradock.example laradock/.env
+```
+
+Dependendo da sua estrutura de pastas, será necessário ajustar o path de destino.
+
+2° - Cerifique-se de ter o Docker instalado, caso não tenha clique aqui para seguir o passo a passo para instalação.
+3° - Na raiz do seu Laradock execute o comando abaixo:
+```
+docker compose up -d postgres nginx
+```
+
+Dependendo da sua conexão com internet, o processo pode ser um pouco demorado, pois ao executar pela primeira vez o Docker irá baixar as imagens dos respectivos containers.
+
+4° - Crie a base de dados chamados que será utilizada pela aplicação:
+
+Conecte-se ao container do PostgreSQL:
+```
+docker exec -it laradock-postgres-1 bash
+```
+
+Conecte-se ao servidor do PostgreSQL:
+```
+psql -h localhost -U default -w
+```
+
+
+Crie o banco de dados:
+```
+CREATE DATABASE chamados;
+```
+
+
+Desconecte-se do servidor do PostgreSQL:
+```
+\q
+```
+
+
+Por fim, encerre a sessão no bash do container:
+```
+exit
+```
+
+5° - Agora vamos: instalar as dependências do projeto, executar as migrations, executar as seeders, gerar a app key e instalar as dependências do front-end:
+
+Conecte-se ao Workspace:
+```
+docker exec -it laradock-workspace-1 bash
+```
+
+
+Instale as dependências do projeto:
+```
+composer install
+```
+
+
+Execute as migrations:
+```
+php artisan migrate
+```
+
+
+Execute as seeders:
+```
+php artisan db:seed
+```
+
+Esse comando é responsável por popular seu banco de dados com alguns dados iniciais.
+
+
+Gere a APP Key do Laravel:
+```
+php artisan key:generate
+```
+
+Instale as dependências do front-end:
+```
+npm install
+```
+
+6° - Ainda no Workspace, vamos executar o front-end da aplicação:
+```
+npm run dev
 ```
 
 ---
