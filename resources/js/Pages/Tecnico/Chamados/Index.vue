@@ -3,10 +3,8 @@
         <div class="max-w-6xl mx-auto p-6">
             <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6 gap-4">
                 <h1 class="text-2xl font-bold text-gray-800">Chamados Técnicos</h1>
-                <p @click="openDataModal()"
-                    class="text-md text-gray-800 hover:text-blue-800 hover:cursor-pointer hover:underline">Exportar
-                    Dados</p>
-                <div class="flex gap-4">
+                <div class="flex items-center gap-4">
+                    <p @click="openDataModal()" class="text-md text-gray-800 hover:text-blue-800 hover:cursor-pointer hover:underline">Exportar Dados</p>
                     <select v-model="filters.status" @change="applyFilters" class="border py-2 rounded text-sm">
                         <option value="">Todos os Status</option>
                         <option>Aberto</option>
@@ -14,7 +12,6 @@
                         <option>Resolvido</option>
                         <option>Fechado</option>
                     </select>
-
                     <select v-model="filters.prioridade" @change="applyFilters" class="border py-2 rounded text-sm">
                         <option value="">Todas as Prioridades</option>
                         <option>Baixa</option>
@@ -38,7 +35,7 @@
                                 Categoria: {{ chamado.categoria }} | Prioridade: {{ chamado.prioridade }}
                             </p>
                             <p class="text-sm font-medium mt-1">Status: <span class="text-blue-600">{{ chamado.status
-                                    }}</span></p>
+                            }}</span></p>
                         </div>
                         <Link :href="`/tecnico/chamados/${chamado.id}`" class="text-sm text-blue-600 hover:underline">
                         Ver Detalhes
@@ -58,8 +55,7 @@
                             class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded">
                             Exportar PDF
                         </button>
-                        <a
-                            class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded">
+                        <a class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded">
                             Exportar Excel (.xlsx)
                         </a>
                     </div>
@@ -80,7 +76,7 @@
 </template>
 
 <script setup>
-import { router, Link, } from '@inertiajs/vue3'
+import { router, Link } from '@inertiajs/vue3'
 import { ref } from 'vue';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import Modal from '@/Components/Modal.vue';
@@ -119,8 +115,8 @@ const closeDataModal = () => {
 };
 
 const mostrarPDF = () => {
-  pdfUrl.value = route('chamados.exportar.pdf');
-  mostrarIframe.value = true;
+    pdfUrl.value = route('chamados.exportar.pdf');
+    mostrarIframe.value = true;
 };
 
 </script>
