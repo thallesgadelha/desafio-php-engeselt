@@ -7,6 +7,7 @@ use App\Http\Controllers\ChamadoController;
 use App\Http\Controllers\Tecnico\ChamadoTecnicoController;
 use App\Http\Controllers\Tecnico\UsuarioController;
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\ExportarDadosController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -70,4 +71,5 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::delete('/{categoria}', [CategoriaController::class, 'delete'])->name('categorias.delete');
     });
 
+    Route::get('/exportar-chamados-pdf', [ExportarDadosController::class, 'exportarPdf'])->name('chamados.exportar.pdf');
 });
