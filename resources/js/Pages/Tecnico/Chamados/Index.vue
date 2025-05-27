@@ -55,7 +55,7 @@
                             class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded">
                             Exportar PDF
                         </button>
-                        <a class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded">
+                        <a :href="exportarExcel" class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded">
                             Exportar Excel (.xlsx)
                         </a>
                     </div>
@@ -77,7 +77,7 @@
 
 <script setup>
 import { router, Link } from '@inertiajs/vue3'
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import Modal from '@/Components/Modal.vue';
 
@@ -123,5 +123,13 @@ const mostrarPDF = () => {
   pdfUrl.value = route('chamados.exportar.pdf') + '?' + params.toString();
   mostrarIframe.value = true;
 };
+
+const exportarExcel = computed(() => {
+  const params = new URLSearchParams({
+    status: filters.value.status,
+    prioridade: filters.value.prioridade,
+  });
+  return route('chamados.exportar.excel') + '?' + params.toString();
+});
 
 </script>

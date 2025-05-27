@@ -71,5 +71,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::delete('/{categoria}', [CategoriaController::class, 'delete'])->name('categorias.delete');
     });
 
-    Route::get('/exportar-chamados-pdf', [ExportarDadosController::class, 'exportarPdf'])->name('chamados.exportar.pdf');
+    Route::get('/exportar/chamados/pdf', [ExportarDadosController::class, 'exportarPdf'])->name('chamados.exportar.pdf');
+    Route::get('/exportar/chamados/excel', [ExportarDadosController::class, 'exportarExcel'])->name('chamados.exportar.excel');
 });
