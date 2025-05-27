@@ -1,5 +1,6 @@
 <template>
     <AppLayout title="Chamado">
+        <Toast :message="toastMessage" :type="toastType" :id="toastId" />
         <div class="max-w-6xl mx-auto p-6">
             <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6 gap-4">
                 <h1 class="text-2xl font-bold text-gray-800">Detalhes do Chamado</h1>
@@ -111,14 +112,25 @@ import { Link, useForm } from '@inertiajs/vue3';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import Modal from '@/Components/Modal.vue';
 import Timeline from '@/Components/Timeline.vue';
+import Toast from '@/Components/Toast.vue';
 
 const props = defineProps({
     chamado: Object,
     respostas: Array,
 });
 
+const toastMessage = ref('');
+const toastType = ref('');
+const toastId = ref(0);
+
 const showAnexoModal = ref(false);
 const anexoUrl = ref('');
+
+const showToastMessage = (message, type) => {
+    toastMessage.value = message;
+    toastType.value = type;
+    toastId.value = Date.now();
+};
 
 const updateStatusForm = useForm({
     status: '',
@@ -149,9 +161,11 @@ const adicionarResposta = () => {
         preserveScroll: true,
         onSuccess: () => {
             respostaForm.reset();
+            showToastMessage('Resposta Enviada', 'info');
         },
         onError: (errors) => {
             console.error(errors);
+            showToastMessage('Erro ao Enviar Resposta', 'error');
         },
     });
 };
@@ -162,9 +176,11 @@ const alterarStatus = () => {
         preserveScroll: true,
         onSuccess: () => {
             props.chamado.status = updateStatusForm.status;
+            showToastMessage('Status Alterado', 'info');
         },
         onError: (errors) => {
             console.error('Erro ao atualizar status:', errors);
+            showToastMessage('Erro ao Alterar Status', 'error');
         },
     });
 };

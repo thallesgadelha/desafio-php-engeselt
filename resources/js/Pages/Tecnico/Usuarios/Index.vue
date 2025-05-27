@@ -1,5 +1,6 @@
 <template>
     <AppLayout title="Usuários">
+        <Toast :message="toastMessage" :type="toastType" :id="toastId" />
         <div class="max-w-6xl mx-auto p-4 sm:p-6">
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 sm:mb-6 gap-2">
                 <h1 class="text-xl sm:text-2xl font-bold text-gray-800">Usuários</h1>
@@ -87,10 +88,11 @@
 </template>
 
 <script setup>
+import { ref } from 'vue';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import { Link, useForm } from '@inertiajs/vue3';
 import Modal from '@/Components/Modal.vue';
-import { ref } from 'vue';
+import Toast from '@/Components/Toast.vue';
 
 defineProps({
     usuarios: {
@@ -98,6 +100,10 @@ defineProps({
         required: true,
     },
 });
+
+const toastMessage = ref('');
+const toastType = ref('');
+const toastId = ref(0);
 
 const showEditModal = ref(false);
 const selectedUsuario = ref(null);
@@ -108,6 +114,12 @@ const editForm = useForm({
     role: '',
     is_active: '',
 });
+
+const showToastMessage = (message, type) => {
+    toastMessage.value = message;
+    toastType.value = type;
+    toastId.value = Date.now();
+};
 
 const openEditModal = (usuario) => {
     selectedUsuario.value = usuario;
@@ -128,7 +140,9 @@ const submitEdit = () => {
     editForm.patch(route('tecnico.usuarios.permissao', selectedUsuario.value.id), {
         onSuccess: () => {
             closeEditModal();
+            showToastMessage('Dados Alterados', 'info');
         },
     });
 };
+
 </script>
