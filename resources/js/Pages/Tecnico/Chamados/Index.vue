@@ -115,8 +115,13 @@ const closeDataModal = () => {
 };
 
 const mostrarPDF = () => {
-    pdfUrl.value = route('chamados.exportar.pdf');
-    mostrarIframe.value = true;
+  const params = new URLSearchParams({
+    status: filters.value.status,
+    prioridade: filters.value.prioridade
+  });
+
+  pdfUrl.value = route('chamados.exportar.pdf') + '?' + params.toString();
+  mostrarIframe.value = true;
 };
 
 </script>

@@ -12,9 +12,19 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class ExportarDadosController extends Controller
 {
-    public function exportarPdf()
+    public function exportarPdf(Request $request)
     {
-        $chamados = Chamado::all();
+        $query = Chamado::query();
+
+        if ($request->has('status') && $request->status !== null) {
+            $query->where('status', $request->status);
+        }
+
+        if ($request->has('prioridade') && $request->prioridade !== null) {
+            $query->where('prioridade', $request->prioridade);
+        }
+
+        $chamados = $query->get();
 
         $pdf = Pdf::loadView('exports.chamados', compact('chamados'));
 
