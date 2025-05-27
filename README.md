@@ -4,13 +4,13 @@ Este projeto contém a resolução dos chamados do desafio proposto
 
 ---
 ## Funcionalidades Principais
-1. Gestão de Chamados Técnicos
+1. Gestão de Chamados
     - Criação de Chamados: Usuários podem registrar novos chamados técnicos, fornecendo detalhes como título, descrição, categoria e prioridade.
     - Acompanhamento: Visualização de uma lista de chamados com filtros por status e prioridade.
     - Detalhamento: Acesso a informações completas de cada chamado, incluindo histórico de respostas e status atual.
 
 2. Respostas e Interações
-    - Respostas Técnicas: Técnicos podem adicionar respostas aos chamados, mantendo um histórico de interações.
+    - Respostas: Técnicos podem adicionar respostas aos chamados, mantendo um histórico de interações.
     - Atualização de Status: Possibilidade de alterar o status do chamado para "Aberto", "Em atendimento", "Resolvido" ou "Fechado".
 
 3. Gestão de Usuários e Permissões
